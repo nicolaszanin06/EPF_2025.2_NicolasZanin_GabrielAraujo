@@ -4,7 +4,7 @@
         "id_usuario": 1,
         "id_materia": 1,
         "id_topico": 1,
-        "data_sessao": "2024-10-01",
+        "data": "2024-10-01",
         "duracao": 60,
         "notas": "Revisão dos conceitos básicos de limites."
     },
@@ -13,7 +13,7 @@
         "id_usuario": 1,
         "id_materia": 1,
         "id_topico": 2,
-        "data_sessao": "2024-10-02",
+        "data": "2024-10-02",
         "duracao": 45,
         "notas": "Prática de derivadas simples."
     }

@@ -4,17 +4,19 @@ import os
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
 class Materia:
-    def __init__(self, id, user_id, nome, descricao= None):
+    def __init__(self, id, id_usuario, nome, cor, descricao= None):
         self.id = id
-        self.user_id = user_id
+        self.id_usuario = id_usuario
         self.nome = nome
+        self.cor = cor
         self.descricao = descricao
 
     def to_dict(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
+            "id_usuario": self.id_usuario,
             "nome": self.nome,
+            "cor": self.cor,
             "descricao": self.descricao
         }
 
@@ -22,8 +24,9 @@ class Materia:
     def from_dict(cls, data: dict):
         return cls(
             id=data["id"],
-            user_id=data["user_id"],
+            id_usuario=data["id_usuario"],
             nome=data["nome"],
+            cor=data["cor"],
             descricao=data.get("descricao")
         )
 
