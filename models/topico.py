@@ -4,27 +4,33 @@ import os
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
 class Topico:
-    def __init__(self, id, materia_id, titulo, descricao = None):
+    def __init__(self, id, id_materia, titulo, status, duracao_estimada, ordem):
         self.id = id
-        self.materia_id = materia_id
+        self.id_materia = id_materia
         self.titulo = titulo
-        self.descricao = descricao 
+        self.status = status
+        self.duracao_estimada = duracao_estimada
+        self.ordem = ordem
 
     def to_dict(self):
         return {
             "id": self.id,
-            "materia_id": self.materia_id,
+            "id_materia": self.id_materia,
             "titulo": self.titulo,
-            "descricao": self.descricao
+            "status": self.status,
+            "duracao_estimada": self.duracao_estimada,
+            "ordem": self.ordem
         }
 
     @classmethod
     def from_dict(cls, data: dict):
         return cls(
             id=data["id"],
-            materia_id=data["materia_id"],
+            id_materia=data["id_materia"],
             titulo=data["titulo"],
-            descricao=data.get("descricao")
+            status=data["status"],
+            duracao_estimada=data["duracao_estimada"],
+            ordem=data["ordem"],
         )
 
 class TopicoModel:

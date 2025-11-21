@@ -4,23 +4,23 @@ import os
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
 class SessaoEstudo:
-    def __init__(self, id, user_id, materia_id, topico_id, data, duracao_minutos, notas = None):
+    def __init__(self, id, id_usuario, id_materia, topico_id, data, duracao, notas = None):
         self.id = id
-        self.user_id = user_id
-        self.materia_id = materia_id
+        self.id_usuario = id_usuario
+        self.id_materia = id_materia
         self.topico_id = topico_id
         self.data = data
-        self.duracao_minutos = duracao_minutos
+        self.duracao = duracao
         self.notas = notas
 
     def to_dict(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
-            "materia_id": self.materia_id,
+            "id_usuario": self.id_usuario,
+            "id_materia": self.id_materia,
             "topico_id": self.topico_id,
             "data": self.data,
-            "duracao_minutos": self.duracao_minutos,
+            "duracao": self.duracao,
             "notas": self.notas
         }
 
@@ -28,16 +28,16 @@ class SessaoEstudo:
     def from_dict(cls, data: dict):
         return cls(
             id=data["id"],
-            user_id=data["user_id"],
-            materia_id=data["materia_id"],
+            id_usuario=data["id_usuario"],
+            id_materia=data["id_materia"],
             topico_id=data["topico_id"],
             data=data["data"],
-            duracao_minutos=data["duracao_minutos"],
+            duracao=data["duracao"],
             notas=data.get("notas")
         )
     
 class SessaoEstudoModel:
-    FILE_PATH = os.path.join(DATA_DIR, 'sessoes_estudo.json')
+    FILE_PATH = os.path.join(DATA_DIR, 'sessao_estudo.json')
 
     def __init__(self):
         self.sessoes = self._load()
