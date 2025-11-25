@@ -1,22 +1,47 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Bottle - {{title or 'Sistema'}}</title>
+    <title>{{title or 'Study Planner'}}</title>
+
     <link rel="stylesheet" href="/static/css/style.css" />
 </head>
+
 <body>
 
-    <div class="container">
-        {{!base}}  <!-- O conteúdo das páginas filhas virá aqui -->
-    </div>
+    <!-- HEADER / NAVBAR -->
+    <header style="background:#222; padding:12px;">
+        <nav style="display:flex; gap:16px; align-items:center;">
+            <a href="/" style="color:white; text-decoration:none;">Home</a>
+            <a href="/subjects" style="color:white; text-decoration:none;">Subjects</a>
+            <a href="/topics" style="color:white; text-decoration:none;">Topics</a>
+            <a href="/study-sessions" style="color:white; text-decoration:none;">Study Sessions</a>
 
-    <footer>
-        <p>&copy; 2025, Meu Projeto. Todos os direitos reservados.</p>
+            <!-- Login / Logout: será melhorado depois quando tiver session -->
+            <span style="flex:1;"></span>
+
+            % if current_user:
+                <span style="color:white;">Hello, {{current_user.username}}</span>
+                <a href="/logout" style="color:white; text-decoration:none;">Logout</a>
+            % else:
+                <a href="/login" style="color:white; text-decoration:none;">Login</a>
+                <a href="/register" style="color:white; text-decoration:none;">Register</a>
+            % end
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container" style="padding: 20px;">
+        {{!base}}
+    </main>
+
+    <!-- FOOTER -->
+    <footer style="text-align:center; padding:15px; margin-top:40px; color:#555;">
+        <p>&copy; 2025 Study Planner. All rights reserved.</p>
     </footer>
 
-    <!-- Scripts JS no final do body -->
     <script src="/static/js/main.js"></script>
+
 </body>
 </html>
