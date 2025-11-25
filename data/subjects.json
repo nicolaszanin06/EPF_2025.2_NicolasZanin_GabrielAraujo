@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "user_id": 1,
+        "name": "Cálculo 1",
+        "color": "#FF5733",
+        "description": "Introdução ao Cálculo Diferencial e Integral."
+    },
+    {
+        "id": 2,
+        "user_id": 1,
+        "name": "Orientação a Objetos",
+        "color": "#33FF57",
+        "description": "Conceitos e práticas de POO em linguagens modernas."
+    }
+]
