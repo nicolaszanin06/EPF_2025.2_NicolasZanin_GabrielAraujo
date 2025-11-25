@@ -1,6 +1,7 @@
 from bottle import request
 from models.user import UserModel, User
 
+
 class UsersService:
     def __init__(self):
         self.model = UserModel()
@@ -20,18 +21,26 @@ class UsersService:
         last_id = max((u.id for u in users), default=0)
         new_id = last_id + 1
 
-        username = request.forms.get('username')
-        password = request.forms.get('password')
-        email = request.forms.get('email')
+        username = request.forms.get("username")
+        password = request.forms.get("password")
+        email = request.forms.get("email")
 
-        user = User(id=new_id, username=username, password_hash=password, email=email)
+        role = "user"
+
+        user = User(
+            id=new_id,
+            username=username,
+            password=password,
+            email=email,
+            role=role
+        )
 
         self.model.add_user(user)
 
     def update(self, user: User):
-        user.username = request.forms.get('username')
-        user.password_hash = request.forms.get('password')
-        user.email = request.forms.get('email')
+        user.username = request.forms.get("username")
+        user.password = request.forms.get("password")
+        user.email = request.forms.get("email")
 
         self.model.update_user(user)
 

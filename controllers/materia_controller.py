@@ -1,6 +1,6 @@
 from bottle import Bottle, request
 from .base_controller import BaseController
-from services.materia_service import SubjectsService
+from services.subject_service import SubjectsService
 from controllers.auth_controller import AuthController
 
 
