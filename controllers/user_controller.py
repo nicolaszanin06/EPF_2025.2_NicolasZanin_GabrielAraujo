@@ -10,7 +10,6 @@ class UserController(BaseController):
         self.user_service = UserService()
 
 
-    # Rotas User
     def setup_routes(self):
         self.app.route('/users', method='GET', callback=self.list_users)
         self.app.route('/users/add', method=['GET', 'POST'], callback=self.add_user)
@@ -27,7 +26,6 @@ class UserController(BaseController):
         if request.method == 'GET':
             return self.render('user_form', user=None, action="/users/add")
         else:
-            # POST - salvar usuário
             self.user_service.save()
             self.redirect('/users')
 
@@ -40,7 +38,6 @@ class UserController(BaseController):
         if request.method == 'GET':
             return self.render('user_form', user=user, action=f"/users/edit/{user_id}")
         else:
-            # POST - salvar edição
             self.user_service.edit_user(user)
             self.redirect('/users')
 

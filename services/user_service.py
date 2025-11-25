@@ -1,42 +1,39 @@
 from bottle import request
 from models.user import UserModel, User
 
-class UserService:
+class UsersService:
     def __init__(self):
-        self.user_model = UserModel()
+        self.model = UserModel()
 
+    def list_all(self):
+        return self.model.get_all()
 
-    def get_all(self):
-        users = self.user_model.get_all()
-        return users
+    def get_by_id(self, user_id: int):
+        return self.model.get_by_id(user_id)
 
+    def find_by_username(self, username: str):
+        users = self.model.get_all()
+        return next((u for u in users if u.username == username), None)
 
     def save(self):
-        last_id = max([u.id for u in self.user_model.get_all()], default=0)
+        users = self.model.get_all()
+        last_id = max((u.id for u in users), default=0)
         new_id = last_id + 1
-        name = request.forms.get('name')
+
+        username = request.forms.get('username')
+        password = request.forms.get('password')
         email = request.forms.get('email')
-        birthdate = request.forms.get('birthdate')
 
-        user = User(id=new_id, name=name, email=email, birthdate=birthdate)
-        self.user_model.add_user(user)
+        user = User(id=new_id, username=username, password_hash=password, email=email)
 
+        self.model.add_user(user)
 
-    def get_by_id(self, user_id):
-        return self.user_model.get_by_id(user_id)
+    def update(self, user: User):
+        user.username = request.forms.get('username')
+        user.password_hash = request.forms.get('password')
+        user.email = request.forms.get('email')
 
+        self.model.update_user(user)
 
-    def edit_user(self, user):
-        name = request.forms.get('name')
-        email = request.forms.get('email')
-        birthdate = request.forms.get('birthdate')
-
-        user.name = name
-        user.email = email
-        user.birthdate = birthdate
-
-        self.user_model.update_user(user)
-
-
-    def delete_user(self, user_id):
-        self.user_model.delete_user(user_id)
+    def delete(self, user_id: int):
+        self.model.delete_user(user_id)
