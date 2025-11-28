@@ -15,19 +15,15 @@
         <nav style="display:flex; gap:16px; align-items:center;">
             <a href="/" style="color:white; text-decoration:none;">Home</a>
             <a href="/subjects" style="color:white; text-decoration:none;">Subjects</a>
-            <a href="/topics" style="color:white; text-decoration:none;">Topics</a>
-            <a href="/study-sessions" style="color:white; text-decoration:none;">Study Sessions</a>
+            <a href="/sessions" style="color:white; text-decoration:none;">Study Sessions</a>
+
 
             <!-- Login / Logout: será melhorado depois quando tiver session -->
             <span style="flex:1;"></span>
 
-            % if current_user:
-                <span style="color:white;">Hello, {{current_user.username}}</span>
-                <a href="/logout" style="color:white; text-decoration:none;">Logout</a>
-            % else:
-                <a href="/login" style="color:white; text-decoration:none;">Login</a>
-                <a href="/register" style="color:white; text-decoration:none;">Register</a>
-            % end
+            <a href="/login" style="color:white; text-decoration:none;">Login</a>
+            <a href="/register" style="color:white; text-decoration:none; margin-left:8px;">Register</a>
+            <a href="/logout" style="color:white; text-decoration:none; margin-left:8px;">Logout</a>
         </nav>
     </header>
 

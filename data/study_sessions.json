@@ -6,7 +6,10 @@
         "topic_id": 1,
         "date": "2024-10-01",
         "duration_minutes": 60,
-        "notes": "Revisão dos conceitos básicos de limites."
+        "notes": "Revisão dos conceitos básicos de limites.",
+        "status": null,
+        "study_type": null,
+        "difficulty": null
     },
     {
         "id": 2,
@@ -15,6 +18,33 @@
         "topic_id": 2,
         "date": "2024-10-02",
         "duration_minutes": 45,
-        "notes": "Prática de Derivadas."
+        "notes": "PrÃ¡tica de Derivadas e revisÃ£o geral",
+        "status": null,
+        "study_type": null,
+        "difficulty": null
+    },
+    {
+        "id": 3,
+        "user_id": 1,
+        "subject_id": 1,
+        "topic_id": 2,
+        "date": "2025-12-25",
+        "duration_minutes": 60,
+        "notes": "Oi",
+        "status": null,
+        "study_type": null,
+        "difficulty": null
+    },
+    {
+        "id": 4,
+        "user_id": 1,
+        "subject_id": 2,
+        "topic_id": 2,
+        "date": "2025-12-31",
+        "duration_minutes": 60,
+        "notes": null,
+        "status": null,
+        "study_type": null,
+        "difficulty": null
     }
 ]

@@ -1,9 +1,11 @@
 # controllers/topic_controller.py
-from bottle import Bottle, request
+from bottle import Bottle, request, HTTPResponse
 from .base_controller import BaseController
 from services.topic_service import TopicService
 from services.subject_service import SubjectService
-from controllers.auth_controller import AuthController
+
+
+SESSION_SECRET = "sua-chave-secreta-aqui"
 
 
 class TopicController(BaseController):
@@ -44,8 +46,9 @@ class TopicController(BaseController):
 
     # Helpers
     def _get_logged_user_id(self):
-        """Obtém o ID do usuário logado usando o AuthController."""
-        return AuthController.get_logged_user_id()
+        """Obtém o ID do usuário logado lendo o cookie de sessão."""
+        user_id = request.get_cookie("session_user", secret=SESSION_SECRET)
+        return int(user_id) if user_id is not None else None
 
     def _ensure_subject_owner(self, subject_id: int):
         """Garante que o subject pertence ao usuário logado."""
@@ -63,13 +66,12 @@ class TopicController(BaseController):
     # Actions
     def list_by_subject(self, subject_id):
         subject = self._ensure_subject_owner(subject_id)
-        if not isinstance(subject, object):  # já houve redirect
+        if isinstance(subject, HTTPResponse):  # já houve redirect
             return subject
 
         all_topics = self.topic_service.list_all()
         topics = [t for t in all_topics if t.subject_id == subject_id]
 
-        # topics.tpl ainda será criado pelo Dev 2
         return self.render(
             'topics',
             subject=subject,
@@ -78,11 +80,10 @@ class TopicController(BaseController):
 
     def add(self, subject_id):
         subject = self._ensure_subject_owner(subject_id)
-        if not isinstance(subject, object):
+        if isinstance(subject, HTTPResponse):
             return subject
 
         if request.method == 'GET':
-            # topic_form.tpl será criado pelo Dev 2
             return self.render(
                 'topic_form',
                 subject=subject,
@@ -90,13 +91,14 @@ class TopicController(BaseController):
                 action=f'/subjects/{subject_id}/topics/new'
             )
 
-        # POST
+        # POST — garante que o form tenha subject_id pro service usar
+        request.forms['subject_id'] = str(subject_id)
         self.topic_service.save()
         return self.redirect(f'/subjects/{subject_id}/topics')
 
     def edit(self, subject_id, topic_id):
         subject = self._ensure_subject_owner(subject_id)
-        if not isinstance(subject, object):
+        if isinstance(subject, HTTPResponse):
             return subject
 
         topic = self.topic_service.get_by_id(topic_id)
@@ -117,7 +119,7 @@ class TopicController(BaseController):
 
     def delete(self, subject_id, topic_id):
         subject = self._ensure_subject_owner(subject_id)
-        if not isinstance(subject, object):
+        if isinstance(subject, HTTPResponse):
             return subject
 
         topic = self.topic_service.get_by_id(topic_id)
