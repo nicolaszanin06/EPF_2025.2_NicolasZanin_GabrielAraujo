@@ -3,7 +3,8 @@ from .base_controller import BaseController
 from services.study_session_service import StudySessionService
 from services.subject_service import SubjectService
 from services.topic_service import TopicService
-from controllers.auth_controller import AuthController
+
+SESSION_SECRET = "sua-chave-secreta-aqui"
 
 
 class StudySessionController(BaseController):
@@ -13,7 +14,6 @@ class StudySessionController(BaseController):
         self.session_service = StudySessionService()
         self.subject_service = SubjectService()
         self.topic_service = TopicService()
-        self.auth = AuthController  
 
         self._setup_routes()
 
@@ -55,6 +55,7 @@ class StudySessionController(BaseController):
             method=['GET', 'POST'],
             callback=self.edit_session,
         )
+
         self.app.route(
             '/sessions/<session_id:int>/delete',
             method='POST',
@@ -62,7 +63,8 @@ class StudySessionController(BaseController):
         )
 
     def _require_login(self):
-        user_id = AuthController.get_logged_user_id(self)
+        """Retorna o ID do usuário logado ou None."""
+        user_id = request.get_cookie("session_user", secret=SESSION_SECRET)
         if not user_id:
             return None
         return int(user_id)
@@ -83,12 +85,8 @@ class StudySessionController(BaseController):
             if s.user_id == user_id
         ]
 
-        subjects = {
-            s.id: s for s in self._get_user_subjects(user_id)
-        }
-        topics = {
-            t.id: t for t in self.topic_service.list_all()
-        }
+        subjects = {s.id: s for s in self._get_user_subjects(user_id)}
+        topics = {t.id: t for t in self.topic_service.list_all()}
 
         return self.render(
             'sessions',
@@ -113,12 +111,8 @@ class StudySessionController(BaseController):
             if s.user_id == user_id and s.subject_id == subject_id
         ]
 
-        subjects = {
-            s.id: s for s in self._get_user_subjects(user_id)
-        }
-        topics = {
-            t.id: t for t in self.topic_service.list_all()
-        }
+        subjects = {s.id: s for s in self._get_user_subjects(user_id)}
+        topics = {t.id: t for t in self.topic_service.list_all()}
 
         return self.render(
             'sessions',
@@ -149,12 +143,8 @@ class StudySessionController(BaseController):
             and s.topic_id == topic_id
         ]
 
-        subjects = {
-            s.id: s for s in self._get_user_subjects(user_id)
-        }
-        topics = {
-            t.id: t for t in self.topic_service.list_all()
-        }
+        subjects = {s.id: s for s in self._get_user_subjects(user_id)}
+        topics = {t.id: t for t in self.topic_service.list_all()}
 
         return self.render(
             'sessions',
@@ -182,6 +172,7 @@ class StudySessionController(BaseController):
                 topics=topics,
                 current_subject=None,
                 current_topic=None,
+                user_id=user_id,
             )
 
         request.forms['user_id'] = str(user_id)
@@ -212,6 +203,7 @@ class StudySessionController(BaseController):
                 topics=topics,
                 current_subject=subject,
                 current_topic=None,
+                user_id=user_id,
             )
 
         request.forms['user_id'] = str(user_id)
@@ -247,6 +239,7 @@ class StudySessionController(BaseController):
                 topics=topics,
                 current_subject=subject,
                 current_topic=topic,
+                user_id=user_id,
             )
 
         request.forms['user_id'] = str(user_id)
@@ -278,6 +271,7 @@ class StudySessionController(BaseController):
                 topics=topics,
                 current_subject=None,
                 current_topic=None,
+                user_id=user_id,
             )
 
         self.session_service.update(session)
