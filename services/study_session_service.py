@@ -26,17 +26,15 @@ class StudySessionService:
 
         date = request.forms.get("date")
         duration_minutes = int(request.forms.get("duration_minutes"))
-        notes = request.forms.get("notes")
 
-        session = StudySession(
-            id=new_id,
-            user_id=user_id,
-            subject_id=subject_id,
-            topic_id=topic_id,
-            date=date,
-            duration_minutes=duration_minutes,
-            notes=notes,
-        )
+        notes = request.forms.get("notes") or None
+        status = request.forms.get("status") or None
+        study_type = request.forms.get("study_type") or None
+        difficulty = request.forms.get("difficulty") or None
+
+        session = StudySession(id=new_id,user_id=user_id,subject_id=subject_id,topic_id=topic_id,
+                               date=date,duration_minutes=duration_minutes,notes=notes,status=status,
+                               study_type=study_type,difficulty=difficulty,)
 
         self.model.add_session(session)
 
@@ -49,7 +47,25 @@ class StudySessionService:
         if duration_raw:
             session.duration_minutes = int(duration_raw)
 
-        session.notes = request.forms.get("notes")
+        notes = request.forms.get("notes")
+        if notes is not None:
+            session.notes = notes or None
+
+        topic_id_raw = request.forms.get("topic_id")
+        if topic_id_raw is not None:
+            session.topic_id = int(topic_id_raw) if topic_id_raw else None
+
+        status_raw = request.forms.get("status")
+        if status_raw is not None:
+            session.status = status_raw or None
+
+        study_type_raw = request.forms.get("study_type")
+        if study_type_raw is not None:
+            session.study_type = study_type_raw or None
+
+        difficulty_raw = request.forms.get("difficulty")
+        if difficulty_raw is not None:
+            session.difficulty = difficulty_raw or None
 
         self.model.update_session(session)
 

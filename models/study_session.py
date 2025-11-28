@@ -1,18 +1,22 @@
 import json
 import os
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
+DATA_DIR = os.path.join(os.path.dirname(__file__), '.', 'data')
 
 
 class StudySession:
-    def __init__(self, id, user_id, subject_id, topic_id, date, duration_minutes, notes=None):
+    def __init__(self,id,user_id,subject_id,topic_id,date,duration_minutes,
+                 notes=None,status=None,study_type=None,difficulty=None,):
         self.id = id
         self.user_id = user_id
         self.subject_id = subject_id
-        self.topic_id = topic_id
+        self.topic_id = topic_id  
         self.date = date
         self.duration_minutes = duration_minutes
         self.notes = notes
+        self.status = status          
+        self.study_type = study_type 
+        self.difficulty = difficulty  
 
     def to_dict(self):
         return {
@@ -22,7 +26,10 @@ class StudySession:
             "topic_id": self.topic_id,
             "date": self.date,
             "duration_minutes": self.duration_minutes,
-            "notes": self.notes
+            "notes": self.notes,
+            "status": self.status,
+            "study_type": self.study_type,
+            "difficulty": self.difficulty,
         }
 
     @classmethod
@@ -31,10 +38,13 @@ class StudySession:
             id=data["id"],
             user_id=data["user_id"],
             subject_id=data["subject_id"],
-            topic_id=data["topic_id"],
+            topic_id=data.get("topic_id"),  
             date=data["date"],
             duration_minutes=data["duration_minutes"],
-            notes=data.get("notes")
+            notes=data.get("notes"),
+            status=data.get("status"),
+            study_type=data.get("study_type"),
+            difficulty=data.get("difficulty"),
         )
 
 
