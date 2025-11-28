@@ -22,5 +22,13 @@
         "status": "não_iniciado",
         "estimated_minutes": 20,
         "order": 1
+    },
+    {
+        "id": 4,
+        "subject_id": 1,
+        "title": "Integrais",
+        "status": "not_started",
+        "estimated_minutes": 60,
+        "order": 3
     }
 ]

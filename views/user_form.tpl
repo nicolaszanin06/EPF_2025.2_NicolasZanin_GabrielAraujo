@@ -1,30 +1,52 @@
-% rebase('layout', title='Formulário Usuário')
+% rebase('layout', title='User Form')
 
 <section class="form-section">
-    <h1>{{'Editar Usuário' if user else 'Adicionar Usuário'}}</h1>
+    <h1>{{'Edit User' if user else 'Add User'}}</h1>
     
     <form action="{{action}}" method="post" class="form-container">
+
+        <!-- USERNAME -->
         <div class="form-group">
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required 
-                   value="{{user.name if user else ''}}">
+            <label for="username">Username:</label>
+            <input type="text"
+                   id="username"
+                   name="username"
+                   required
+                   value="{{user.username if user else ''}}">
         </div>
         
+        <!-- EMAIL -->
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required 
+            <input type="email"
+                   id="email"
+                   name="email"
+                   required
                    value="{{user.email if user else ''}}">
         </div>
         
+        <!-- PASSWORD -->
         <div class="form-group">
-            <label for="birthdate">Data de Nascimento:</label>
-            <input type="date" id="birthdate" name="birthdate" required 
-                   value="{{user.birthdate if user else ''}}">
+            <label for="password">Password:</label>
+            <input type="password"
+                   id="password"
+                   name="password"
+                   % if user:
+                       placeholder="Leave blank to keep current password"
+                   % else:
+                       required
+                   % end
+            >
         </div>
-        
+
+        <!-- ROLE (opcional, aqui estou fixando como 'user' se não houver) -->
+        <input type="hidden"
+               name="role"
+               value="{{user.role if user else 'user'}}">
+
         <div class="form-actions">
-            <button type="submit" class="btn-submit">Salvar</button>
-            <a href="/users" class="btn-cancel">Voltar</a>
+            <button type="submit" class="btn-submit">Save</button>
+            <a href="/users" class="btn-cancel">Back</a>
         </div>
     </form>
 </section>

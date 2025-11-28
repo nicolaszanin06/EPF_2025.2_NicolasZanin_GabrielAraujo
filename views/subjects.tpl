@@ -33,13 +33,23 @@
         </td>
         <td>{{subject.description or ''}}</td>
         <td>
+          <!-- editar / apagar -->
           <a href="/subjects/{{subject.id}}/edit">Edit</a>
           |
-          <form action="/subjects/{{subject.id}}/delete" method="post" style="display:inline;">
-            <button type="submit" onclick="return confirm('Delete this subject?');">
+          <form action="/subjects/{{subject.id}}/delete"
+                method="post"
+                style="display:inline;">
+            <button type="submit"
+                    onclick="return confirm('Delete this subject?');">
               Delete
             </button>
           </form>
+          |
+          <!-- NOVO: ver tópicos da matéria -->
+          <a href="/subjects/{{subject.id}}/topics">Topics</a>
+          |
+          <!-- OPCIONAL: ver sessões da matéria -->
+          <a href="/subjects/{{subject.id}}/sessions">Sessions</a>
         </td>
       </tr>
     % end
