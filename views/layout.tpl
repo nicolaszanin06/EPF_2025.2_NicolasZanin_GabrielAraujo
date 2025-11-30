@@ -16,7 +16,7 @@
             <a href="/" style="color:white; text-decoration:none;">Home</a>
             <a href="/subjects" style="color:white; text-decoration:none;">Subjects</a>
             <a href="/sessions" style="color:white; text-decoration:none;">Study Sessions</a>
-
+            <a href="/stats" style="color:white; text-decoration:none;">Statistics</a>
 
             <!-- Login / Logout: será melhorado depois quando tiver session -->
             <span style="flex:1;"></span>
