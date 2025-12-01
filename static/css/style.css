@@ -1,8 +1,8 @@
 /*RESET E VARIÁVEIS GLOBAIS*/
 
 :root {
-  --primary-color: #3498db;
-  --secondary-color: #2980b9;
+  --primary-color: #002F54;   
+  --secondary-color: #005F3B; 
   --danger-color: #e74c3c;
   --success-color: #2ecc71;
   --text-color: #333333;
@@ -10,6 +10,7 @@
   --border-color: #dddddd;
   --shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   --radius: 8px;
+  --accent-green: #16a34a;   
 }
 
 * {
@@ -40,10 +41,10 @@ a:hover {
    =============================== */
 
 .main-header {
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
-  padding: 12px 24px;
+  background: linear-gradient(90deg, #002F54 0%, #005F3B 100%);
+  border-bottom: none;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.25);
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,19 +54,29 @@ a:hover {
 }
 
 .logo {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: #111827;
+  color: #e5f3ff;
 }
 
 .main-nav a {
-  margin-left: 16px;
-  font-size: 0.96rem;
-  color: #374151;
+  margin-left: 8px;
+  font-size: 0.9rem;
+  background: #ffffff;
+  color: #0b3b70;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  text-decoration: none;
+  transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.08s ease;
 }
 
 .main-nav a:hover {
-  color: var(--primary-color);
+  background: #eef9f2;
+  color: #0b3b70;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
 .main-container {
@@ -92,8 +103,9 @@ a:hover {
   margin-top: 24px;
 }
 
-
-
+.main-footer p {
+  margin: 0;                
+}
 
 /* Títulos padrão */
 h1, h2, h3 {
@@ -140,11 +152,15 @@ button,
   background: var(--primary-color);
   color: #ffffff;
   border: none;
-  border-radius: 6px;
-  padding: 6px 12px;
+  border-radius: 999px;            
+  padding: 7px 16px;
   font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.1s ease;
+  transition: background 0.15s ease,
+              transform 0.1s ease,
+              box-shadow 0.1s ease;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.18);
 }
 
 button:hover,
@@ -152,14 +168,15 @@ button:hover,
 .btn-primary:hover {
   background: var(--secondary-color);
   transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(15, 23, 42, 0.25);
 }
 
 .btn-cancel,
 .btn-secondary {
   background: #e5e7eb;
   color: #111827;
-  border-radius: 6px;
-  padding: 6px 12px;
+  border-radius: 999px;
+  padding: 6px 14px;
   font-size: 0.9rem;
   border: none;
   cursor: pointer;
@@ -173,8 +190,8 @@ button:hover,
 .btn-danger {
   background: var(--danger-color);
   color: #ffffff;
-  border-radius: 6px;
-  padding: 6px 12px;
+  border-radius: 999px;
+  padding: 6px 14px;
   border: none;
   font-size: 0.9rem;
   cursor: pointer;
@@ -183,6 +200,7 @@ button:hover,
 .btn-danger:hover {
   background: #c0392b;
 }
+
 
 /*FORMULÁRIOS (PÁGINAS INTERNAS)*/
 
