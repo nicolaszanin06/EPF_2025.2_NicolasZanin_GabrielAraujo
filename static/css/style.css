@@ -83,12 +83,17 @@ a:hover {
 
 /* Rodapé padrão */
 .main-footer {
-  text-align: center;
+  display: flex;
+  justify-content: center;  
+  align-items: center;      
   font-size: 0.85rem;
   color: #6b7280;
   padding: 16px;
   margin-top: 24px;
 }
+
+
+
 
 /* Títulos padrão */
 h1, h2, h3 {

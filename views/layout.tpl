@@ -6,6 +6,10 @@
     <title>{{title or 'Study Planner'}}</title>
     <link rel="stylesheet" href="/static/css/style.css" />
 </head>
+
+% hide_header = locals().get('hide_header', False)
+<body class="{{'auth-page' if hide_header else ''}}">
+
 <body class="{{'auth-page' if hide_header else ''}}">
 
     % if not hide_header:
@@ -27,7 +31,7 @@
     </main>
 
     <footer class="main-footer">
-        <p>&copy; 2025, Study Planner. All rights reserved.</p>
+        <p>&copy;                                         2025, Study Planner. Todos os direitos reservados.</p>
     </footer>
 </body>
 </html>

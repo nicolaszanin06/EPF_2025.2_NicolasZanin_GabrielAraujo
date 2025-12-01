@@ -153,7 +153,7 @@
         <input id="confirm_password" name="confirm_password" type="password" required>
       </div>
 
-      <button type="submit">Create account</button>
+      <button type="submit">Criar conta</button>
     </form>
 
     <p class="auth-footer">
