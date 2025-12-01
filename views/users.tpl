@@ -1,6 +1,6 @@
 % rebase('layout', title='Users')
 
-<h2>Users</h2>
+<h2>Usuários</h2>
 
 <div style="margin-bottom: 12px;">
   <a href="/users/add">+ New user</a>
@@ -12,10 +12,10 @@
   <table border="1" cellpadding="6" cellspacing="0">
     <tr>
       <th>ID</th>
-      <th>Username</th>
+      <th>Usuário</th>
       <th>Email</th>
-      <th>Role</th>
-      <th>Actions</th>
+      <th>Tipo</th>
+      <th>Ações</th>
     </tr>
     % for user in users:
       <tr>
