@@ -131,3 +131,13 @@
     % end
   % end
 </section>
+
+<section style="margin-top:20px; padding:10px; border:1px solid #ccc;">
+  <h3>Export data</h3>
+  <ul>
+    <li><a href="/export/full.json">Download ALL data (JSON)</a></li>
+    <li><a href="/export/sessions.csv">Download study sessions (CSV)</a></li>
+    <li><a href="/export/subjects.csv">Download subjects (CSV)</a></li>
+    <li><a href="/export/topics.csv">Download topics (CSV)</a></li>
+  </ul>
+</section>
