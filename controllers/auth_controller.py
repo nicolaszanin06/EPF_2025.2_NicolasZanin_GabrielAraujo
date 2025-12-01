@@ -44,10 +44,10 @@ class AuthController(BaseController):
             path="/"
         )
 
-        # depois do login, manda pra lista de matérias
-        return self.redirect('/subjects')
+        # depois do login, manda para a página de estatísticas
+        return self.redirect('/stats')
 
-    # REGISTER
+  # REGISTER
     def register(self):
         if request.method == 'GET':
             return self.render('register', error=None, username="", email="")
