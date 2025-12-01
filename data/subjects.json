@@ -12,5 +12,12 @@
         "name": "Orientação a Objetos",
         "color": "#33FF57",
         "description": "Conceitos e práticas de POO em linguagens modernas."
+    },
+    {
+        "id": 3,
+        "user_id": 1,
+        "name": "Engenharia e Ambiente",
+        "color": "#FF5733",
+        "description": "Dificil"
     }
 ]

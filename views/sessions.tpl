@@ -210,7 +210,7 @@
     <div class="stats-topbar-left">
       <div class="stats-topbar-brand" onclick="window.location.href='/stats'">
         <img src="/static/img/logo_study_pequena.png" alt="Study Planner" class="stats-topbar-logo">
-        <span class="stats-topbar-title">Study Planner</span>
+        <span class="stats-topbar-title"></span>
       </div>
 
       <div class="stats-topbar-actions">
