@@ -44,6 +44,13 @@ class TopicController(BaseController):
             callback=self.delete
         )
 
+        # Alternar status
+        self.app.route(
+            '/subjects/<subject_id:int>/topics/<topic_id:int>/toggle',
+            method='POST',
+            callback=self.toggle_status
+        )
+
     # Helpers
     def _get_logged_user_id(self):
         """Obtém o ID do usuário logado lendo o cookie de sessão."""
@@ -125,6 +132,22 @@ class TopicController(BaseController):
         topic = self.topic_service.get_by_id(topic_id)
         if topic and topic.subject_id == subject_id:
             self.topic_service.delete(topic_id)
+
+        return self.redirect(f'/subjects/{subject_id}/topics')
+
+     # alternar status pendente/concluído
+    def toggle_status(self, subject_id, topic_id):
+        subject = self._ensure_subject_owner(subject_id)
+        if isinstance(subject, HTTPResponse):
+            return subject
+
+        topic = self.topic_service.get_by_id(topic_id)
+        if not topic or topic.subject_id != subject_id:
+            return self.redirect(f'/subjects/{subject_id}/topics')
+
+        # alterna entre 'pending' e 'completed'
+        topic.status = 'completed' if topic.status != 'completed' else 'pending'
+        self.topic_service.update(topic)
 
         return self.redirect(f'/subjects/{subject_id}/topics')
 

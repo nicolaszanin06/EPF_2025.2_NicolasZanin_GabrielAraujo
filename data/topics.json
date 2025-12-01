@@ -2,8 +2,8 @@
     {
         "id": 1,
         "subject_id": 1,
-        "title": "Limites",
-        "status": "concluido",
+        "title": null,
+        "status": "completed",
         "estimated_minutes": 120,
         "order": 1
     },
@@ -11,7 +11,7 @@
         "id": 2,
         "subject_id": 1,
         "title": "Derivadas",
-        "status": "em_progresso",
+        "status": "pending",
         "estimated_minutes": 90,
         "order": 2
     },
@@ -26,8 +26,8 @@
     {
         "id": 4,
         "subject_id": 1,
-        "title": "Integrais",
-        "status": "not_started",
+        "title": null,
+        "status": null,
         "estimated_minutes": 60,
         "order": 3
     }

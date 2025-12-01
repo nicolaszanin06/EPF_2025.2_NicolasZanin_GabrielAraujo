@@ -65,6 +65,7 @@ class TopicModel:
             )
 
     def get_all(self):
+        self.topics = self._load()
         return self.topics
 
     def get_by_id(self, topic_id: int):
