@@ -5,6 +5,7 @@ from controllers.subject_controller import subject_routes
 from controllers.topic_controller import topic_routes
 from controllers.study_session_controller import session_routes
 from controllers.stats_controller import stats_routes
+from controllers.stats_controller import stats_routes
 
 
 def init_controllers(app: Bottle):
@@ -14,3 +15,4 @@ def init_controllers(app: Bottle):
     app.merge(session_routes)
     app.merge(stats_routes)
     app.merge(user_routes)
+    app.merge(stats_routes)
