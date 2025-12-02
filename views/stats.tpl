@@ -10,7 +10,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
-  /* ===== BARRA VERDE SUPERIOR (LOGO + BOTÕES) ===== */
+  /* ===== BARRA SUPERIOR (LOGO + BOTÕES) ===== */
   .stats-topbar {
     background: linear-gradient(90deg, #002F54 0%, #005F3B 100%);
     padding: 10px 18px;
@@ -22,12 +22,6 @@
   }
 
   .stats-topbar-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .stats-topbar-brand {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -47,11 +41,23 @@
     font-size: 1rem;
   }
 
-  .stats-topbar-actions {
+  /* Grupo de botões à esquerda (Matérias, Sessões, Usuários) */
+  .stats-top-actions {
     display: flex;
     gap: 8px;
+    margin-left: 18px;
   }
 
+  .stats-top-actions a {
+    text-decoration: none;
+  }
+
+  .stats-topbar-actions {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Chips (botões arredondados) */
   .stats-chip {
     border: none;
     border-radius: 999px;
@@ -61,38 +67,44 @@
     background: #ffffff;
     color: #0b3b70;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease;
   }
 
   .stats-chip:hover {
     background: #eef9f2;
     transform: translateY(-1px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   }
 
-  .stats-topbar-right {
-    display: flex;
-    align-items: center;
+  /* Chip especial para admin */
+  .stats-chip-admin {
+    background: #0b3b70;
+    color: #ffffff;
   }
 
+  .stats-chip-admin:hover {
+    background: #092947;
+  }
+
+  /* Botão de sair à direita */
   .btn-logout {
-    border: none;
     border-radius: 999px;
-    padding: 6px 16px;
+    padding: 6px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: #f9fafb;
+    background: transparent;
     font-size: 0.9rem;
     font-weight: 600;
-    background: #ffffff;
-    color: #b91c1c;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-    transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease;
+    text-decoration: none;
+    transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.08s ease;
   }
 
   .btn-logout:hover {
-    background: #fee2e2;
+    background: rgba(255, 255, 255, 0.12);
     transform: translateY(-1px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18);
   }
 
   /* ===== TÍTULO PRINCIPAL ===== */
@@ -108,7 +120,7 @@
     background: #ffffff;
     border-radius: 12px;
     padding: 14px 16px;
-    box-shadow: 0 1px 4px rgba(15,23,42,0.08);
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
     margin-bottom: 18px;
   }
 
@@ -147,7 +159,7 @@
   .btn-primary:hover {
     background: #0a325f;
     transform: translateY(-1px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.18);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18);
   }
 
   .btn-link {
@@ -173,7 +185,7 @@
     background: #ffffff;
     border-radius: 12px;
     padding: 14px 16px;
-    box-shadow: 0 1px 4px rgba(15,23,42,0.08);
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
   }
 
   .stats-card h3 {
@@ -259,28 +271,27 @@
 
 <div class="stats-page">
 
-  <!-- BARRA VERDE COM LOGO + BOTÕES -->
+  <!-- BARRA SUPERIOR COM LOGO + BOTÕES -->
   <div class="stats-topbar">
-    <div class="stats-topbar-left">
-      <div class="stats-topbar-brand" onclick="window.location.href='/stats'">
-        <img src="/static/img/logo_study_pequena.png" alt="Study Planner" class="stats-topbar-logo">
-        <span class="stats-topbar-title"></span>
-      </div>
+    <div class="stats-topbar-left" onclick="window.location.href='/stats'">
+      <img src="/static/img/logo_study_pequena.png"
+           alt="Study Planner"
+           class="stats-topbar-logo">
+      <span class="stats-topbar-title"></span>
 
-      <div class="stats-topbar-actions">
-        <button type="button" class="stats-chip" onclick="window.location.href='/subjects'">
-          Matérias
-        </button>
-        <button type="button" class="stats-chip" onclick="window.location.href='/sessions'">
-          Sessões de estudo
-        </button>
+      <!-- Botões à esquerda: Matérias / Sessões / Usuários (se admin) -->
+      <div class="stats-top-actions" onclick="event.stopPropagation();">
+        <a href="/subjects" class="stats-chip">Matérias</a>
+        <a href="/sessions" class="stats-chip">Sessões de estudo</a>
+        % if is_admin:
+          <a href="/users" class="stats-chip stats-chip-admin">Usuários</a>
+        % end
       </div>
     </div>
 
-    <div class="stats-topbar-right">
-      <button type="button" class="btn-logout" onclick="window.location.href='/logout'">
-        Sair
-      </button>
+    <!-- Botão de sair à direita -->
+    <div class="stats-topbar-actions">
+      <a href="/logout" class="btn-logout">Sair</a>
     </div>
   </div>
 
@@ -345,7 +356,7 @@
       <p class="stats-card-value">
         {{stats['subjects_count']}}
       </p>
-      <small>registradas para este usuário</small>
+      <small>cadastradas para este usuário</small>
     </div>
 
     <div class="stats-card">
@@ -406,7 +417,8 @@
       <p>Nenhuma sessão de estudo foi encontrada para o período selecionado.</p>
     % else:
       <p>
-        Você estudou um total de <strong>{{stats['total_hours']}} horas</strong>
+        Você estudou um total de
+        <strong>{{stats['total_hours']}} horas</strong>
         ({{stats['total_minutes']}} minutos) em
         <strong>{{stats['sessions_count']}} sessões</strong>.
       </p>
@@ -419,15 +431,18 @@
     % end
   </section>
 
-  <!-- EXPORTAÇÃO -->
+  <!-- EXPORTAÇÃO (apenas para admin) -->
+  % if is_admin:
   <section class="stats-card-shell stats-export-card">
     <h3>Exportar dados</h3>
+    <p>Somente administradores podem exportar todos os dados do sistema.</p>
     <ul>
       <li><a href="/export/full.json">Baixar todos os dados (JSON)</a></li>
-      <li><a href="/export/sessions.csv">Baixar sessões de estudo (CSV)</a></li>
-      <li><a href="/export/subjects.csv">Baixar matérias (CSV)</a></li>
-      <li><a href="/export/topics.csv">Baixar tópicos (CSV)</a></li>
+      <li><a href="/export/sessions.csv">Sessões de estudo (CSV)</a></li>
+      <li><a href="/export/subjects.csv">Matérias (CSV)</a></li>
+      <li><a href="/export/topics.csv">Tópicos (CSV)</a></li>
     </ul>
   </section>
+  % end
 
 </div>

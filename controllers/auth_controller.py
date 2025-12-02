@@ -44,6 +44,14 @@ class AuthController(BaseController):
             path="/"
         )
 
+        role = getattr(user, "role", None) or "user"
+        response.set_cookie(
+            "session_role",
+            role,
+            secret=SESSION_SECRET,
+            path="/"
+        )
+
         # depois do login, manda para a página de estatísticas
         return self.redirect('/stats')
 
