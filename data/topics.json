@@ -2,7 +2,7 @@
     {
         "id": 1,
         "subject_id": 1,
-        "title": null,
+        "title": "Limites",
         "status": "pending",
         "estimated_minutes": 120,
         "order": 1
@@ -22,14 +22,6 @@
         "status": "completed",
         "estimated_minutes": 20,
         "order": 1
-    },
-    {
-        "id": 4,
-        "subject_id": 1,
-        "title": null,
-        "status": "completed",
-        "estimated_minutes": 60,
-        "order": 3
     },
     {
         "id": 5,

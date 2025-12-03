@@ -4,7 +4,7 @@
         "user_id": 1,
         "name": "Calculo 1",
         "color": "#FF5733",
-        "description": "IntroduÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂ£o ao CÃÂÃÂÃÂÃÂ¡lculo Diferencial e Integral."
+        "description": "Introducao ao Calculo Diferencial e Integral."
     },
     {
         "id": 2,
@@ -54,5 +54,12 @@
         "name": "Calculo 1",
         "color": "#FF0000",
         "description": "dificl tbm"
+    },
+    {
+        "id": 9,
+        "user_id": 8,
+        "name": "Teste1",
+        "color": "#FF0000",
+        "description": "tesye"
     }
 ]

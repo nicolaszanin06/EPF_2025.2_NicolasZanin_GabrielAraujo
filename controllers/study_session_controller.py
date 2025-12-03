@@ -308,7 +308,6 @@ class StudySessionController(BaseController):
         self.session_service.update(session)
         return self.redirect('/sessions')
 
-
     def delete_session(self, session_id: int):
         user_id = self._require_login()
         if not user_id:

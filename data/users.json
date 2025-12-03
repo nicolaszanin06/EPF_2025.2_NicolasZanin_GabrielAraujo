@@ -28,9 +28,16 @@
         "role": "user"
     },
     {
-        "id": 7,
+        "id": 5,
         "username": "usar1",
         "password": "1234",
+        "email": null,
+        "role": "user"
+    },
+    {
+        "id": 6,
+        "username": "nicolas888",
+        "password": "123",
         "email": null,
         "role": "user"
     }
