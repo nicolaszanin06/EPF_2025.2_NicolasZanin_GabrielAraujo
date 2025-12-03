@@ -71,6 +71,7 @@ class StudySessionModel:
             )
 
     def get_all(self):
+        self.sessions = self._load()
         return self.sessions
 
     def get_by_id(self, session_id: int):

@@ -62,6 +62,7 @@ class SubjectModel:
             )
 
     def get_all(self):
+        self.subjects = self._load()
         return self.subjects
 
     def get_by_id(self, subject_id: int):
