@@ -271,9 +271,16 @@
         <button type="button" class="stats-chip" onclick="window.location.href='/subjects'">
           Matérias
         </button>
+
         <button type="button" class="stats-chip" onclick="window.location.href='/sessions'">
           Sessões de estudo
         </button>
+
+        % if is_admin:
+          <button type="button" class="stats-chip" onclick="window.location.href='/users'">
+            Usuários
+          </button>
+        % end
       </div>
     </div>
 
@@ -282,7 +289,7 @@
         Sair
       </button>
     </div>
-  </div>
+  </div>  <!-- <-- IMPORTANTE: fecha stats-topbar -->
 
   <h2 class="stats-title">Estatísticas de estudo</h2>
 
@@ -419,7 +426,8 @@
     % end
   </section>
 
-  <!-- EXPORTAÇÃO -->
+  % if is_admin:
+  <!-- EXPORTAÇÃO (somente admin) -->
   <section class="stats-card-shell stats-export-card">
     <h3>Exportar dados</h3>
     <ul>
@@ -429,5 +437,6 @@
       <li><a href="/export/topics.csv">Baixar tópicos (CSV)</a></li>
     </ul>
   </section>
+  % end
 
 </div>

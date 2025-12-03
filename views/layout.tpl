@@ -8,18 +8,23 @@
 </head>
 
 % hide_header = locals().get('hide_header', False)
-<body class="{{'auth-page' if hide_header else ''}}">
 
 <body class="{{'auth-page' if hide_header else ''}}">
 
     % if not hide_header:
     <header class="main-header">
         <div class="logo">Study Planner</div>
+
         <nav class="main-nav">
-            <a href="/">Home</a>
-            <a href="/subjects">Subjects</a>
-            <a href="/sessions">Study Sessions</a>
-            <a href="/stats">Statistics</a>
+            <a href="/stats">Estatísticas</a>
+            <a href="/subjects">Matérias</a>
+            <a href="/sessions">Sessões de estudo</a>
+
+            % if is_admin:
+                <a href="/users">Usuários</a>
+            % end
+
+            <a href="/logout">Sair</a>
         </nav>
     </header>
     % end
@@ -31,7 +36,8 @@
     </main>
 
     <footer class="main-footer">
-        <p>&copy;                                         2025, Study Planner. Todos os direitos reservados.</p>
+        <p>&copy; 2025, Study Planner. Todos os direitos reservados.</p>
     </footer>
+
 </body>
 </html>
