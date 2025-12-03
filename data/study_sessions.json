@@ -46,5 +46,29 @@
         "status": null,
         "study_type": null,
         "difficulty": null
+    },
+    {
+        "id": 5,
+        "user_id": 1,
+        "subject_id": 3,
+        "topic_id": null,
+        "date": "2025-12-09",
+        "duration_minutes": 90,
+        "notes": "dificil",
+        "status": null,
+        "study_type": null,
+        "difficulty": null
+    },
+    {
+        "id": 6,
+        "user_id": 3,
+        "subject_id": 6,
+        "topic_id": 7,
+        "date": "2025-12-17",
+        "duration_minutes": 50,
+        "notes": "java",
+        "status": null,
+        "study_type": null,
+        "difficulty": null
     }
 ]

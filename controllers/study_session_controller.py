@@ -178,26 +178,28 @@ class StudySessionController(BaseController):
         if not user_id:
             return self.redirect('/login')
 
+        # Carrega matérias e tópicos SEMPRE (GET e possível reexibição de form)
+        subjects = self._get_user_subjects(user_id)
+        subject_ids = {s.id for s in subjects}
+
+        topics = [
+            t for t in self.topic_service.list_all()
+            if t.subject_id in subject_ids
+        ]
+
         if request.method == 'GET':
-            subjects = self._get_user_subjects(user_id)
-            subject_ids = {s.id for s in subjects}
+            return self.render(
+                'session_form',
+                action="/sessions/new",
+                session=None,
+                subjects=subjects,
+                topics=topics,
+                current_subject=None,
+                current_topic=None,
+                user_id=user_id,
+            )
 
-            topics = [
-                t for t in self.topic_service.list_all()
-                if t.subject_id in subject_ids
-            ]
-
-        return self.render(
-            'session_form',
-            action="/sessions/new",
-            session=None,
-            subjects=subjects,
-            topics=topics,
-            current_subject=None,
-            current_topic=None,
-            user_id=user_id,
-        )
-
+        # POST – salva sessão
         request.forms['user_id'] = str(user_id)
         self.session_service.save()
         return self.redirect('/sessions')
@@ -291,19 +293,21 @@ class StudySessionController(BaseController):
                 if t.subject_id in subject_ids
             ]
 
-        return self.render(
-            'session_form',
-            action=f"/sessions/{session_id}/edit",
-            session=session,
-            subjects=subjects,
-            topics=topics,
-            current_subject=None,
-            current_topic=None,
-            user_id=user_id,
-        )
+            return self.render(
+                'session_form',
+                action=f"/sessions/{session_id}/edit",
+                session=session,
+                subjects=subjects,
+                topics=topics,
+                current_subject=None,
+                current_topic=None,
+                user_id=user_id,
+            )
 
+        # POST – atualiza e volta para lista
         self.session_service.update(session)
         return self.redirect('/sessions')
+
 
     def delete_session(self, session_id: int):
         user_id = self._require_login()
