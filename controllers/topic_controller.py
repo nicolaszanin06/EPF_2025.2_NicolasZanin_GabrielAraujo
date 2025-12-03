@@ -1,9 +1,7 @@
-# controllers/topic_controller.py
-from bottle import Bottle, request, HTTPResponse
+from bottle import Bottle, request
 from .base_controller import BaseController
 from services.topic_service import TopicService
 from services.subject_service import SubjectService
-
 
 SESSION_SECRET = "sua-chave-secreta-aqui"
 
@@ -44,37 +42,45 @@ class TopicController(BaseController):
             callback=self.delete
         )
 
-        # Alternar status
+        # Alternar status (pendente/concluído)
         self.app.route(
             '/subjects/<subject_id:int>/topics/<topic_id:int>/toggle',
             method='POST',
             callback=self.toggle_status
         )
 
-    # Helpers
+    # Helpers ---------------------------------------------------------
+
     def _get_logged_user_id(self):
         """Obtém o ID do usuário logado lendo o cookie de sessão."""
         user_id = request.get_cookie("session_user", secret=SESSION_SECRET)
         return int(user_id) if user_id is not None else None
 
     def _ensure_subject_owner(self, subject_id: int):
-        """Garante que o subject pertence ao usuário logado."""
+        """
+        Garante que a matéria pertence ao usuário logado.
+
+        Retorna (subject, response):
+          - (subject, None) se estiver tudo OK
+          - (None, redirect(...)) se precisar redirecionar
+        """
         user_id = self._get_logged_user_id()
         if not user_id:
-            return self.redirect('/login')
+            return None, self.redirect('/login')
 
         subject = self.subject_service.get_by_id(subject_id)
         if not subject or subject.user_id != user_id:
             # não deixa acessar matéria de outro usuário
-            return self.redirect('/subjects')
+            return None, self.redirect('/subjects')
 
-        return subject
+        return subject, None
 
-    # Actions
+    # Actions ---------------------------------------------------------
+
     def list_by_subject(self, subject_id):
-        subject = self._ensure_subject_owner(subject_id)
-        if isinstance(subject, HTTPResponse):  # já houve redirect
-            return subject
+        subject, resp = self._ensure_subject_owner(subject_id)
+        if resp:
+            return resp  # já redirecionou
 
         all_topics = self.topic_service.list_all()
         topics = [t for t in all_topics if t.subject_id == subject_id]
@@ -86,9 +92,9 @@ class TopicController(BaseController):
         )
 
     def add(self, subject_id):
-        subject = self._ensure_subject_owner(subject_id)
-        if isinstance(subject, HTTPResponse):
-            return subject
+        subject, resp = self._ensure_subject_owner(subject_id)
+        if resp:
+            return resp
 
         if request.method == 'GET':
             return self.render(
@@ -104,9 +110,9 @@ class TopicController(BaseController):
         return self.redirect(f'/subjects/{subject_id}/topics')
 
     def edit(self, subject_id, topic_id):
-        subject = self._ensure_subject_owner(subject_id)
-        if isinstance(subject, HTTPResponse):
-            return subject
+        subject, resp = self._ensure_subject_owner(subject_id)
+        if resp:
+            return resp
 
         topic = self.topic_service.get_by_id(topic_id)
         if not topic or topic.subject_id != subject_id:
@@ -125,9 +131,9 @@ class TopicController(BaseController):
         return self.redirect(f'/subjects/{subject_id}/topics')
 
     def delete(self, subject_id, topic_id):
-        subject = self._ensure_subject_owner(subject_id)
-        if isinstance(subject, HTTPResponse):
-            return subject
+        subject, resp = self._ensure_subject_owner(subject_id)
+        if resp:
+            return resp
 
         topic = self.topic_service.get_by_id(topic_id)
         if topic and topic.subject_id == subject_id:
@@ -135,11 +141,10 @@ class TopicController(BaseController):
 
         return self.redirect(f'/subjects/{subject_id}/topics')
 
-     # alternar status pendente/concluído
     def toggle_status(self, subject_id, topic_id):
-        subject = self._ensure_subject_owner(subject_id)
-        if isinstance(subject, HTTPResponse):
-            return subject
+        subject, resp = self._ensure_subject_owner(subject_id)
+        if resp:
+            return resp
 
         topic = self.topic_service.get_by_id(topic_id)
         if not topic or topic.subject_id != subject_id:

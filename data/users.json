@@ -19,5 +19,26 @@
         "password": "251009210",
         "email": "gabrielrdaraujos@gmail.com",
         "role": "user"
+    },
+    {
+        "id": 4,
+        "username": "admin2",
+        "password": "12345",
+        "email": null,
+        "role": "user"
+    },
+    {
+        "id": 5,
+        "username": "132admin",
+        "password": "123",
+        "email": null,
+        "role": "user"
+    },
+    {
+        "id": 6,
+        "username": "Nicolas2006",
+        "password": "123",
+        "email": null,
+        "role": "user"
     }
 ]
