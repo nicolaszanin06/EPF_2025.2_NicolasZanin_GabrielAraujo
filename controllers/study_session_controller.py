@@ -86,7 +86,13 @@ class StudySessionController(BaseController):
         ]
 
         subjects = {s.id: s for s in self._get_user_subjects(user_id)}
-        topics = {t.id: t for t in self.topic_service.list_all()}
+        subject_ids = set(subjects.keys())
+
+        topics = {
+            t.id: t
+            for t in self.topic_service.list_all()
+            if t.subject_id in subject_ids
+        }
 
         return self.render(
             'sessions',
@@ -112,7 +118,13 @@ class StudySessionController(BaseController):
         ]
 
         subjects = {s.id: s for s in self._get_user_subjects(user_id)}
-        topics = {t.id: t for t in self.topic_service.list_all()}
+        subject_ids = set(subjects.keys())
+
+        topics = {
+            t.id: t
+            for t in self.topic_service.list_all()
+            if t.subject_id in subject_ids
+        }
 
         return self.render(
             'sessions',
@@ -144,7 +156,13 @@ class StudySessionController(BaseController):
         ]
 
         subjects = {s.id: s for s in self._get_user_subjects(user_id)}
-        topics = {t.id: t for t in self.topic_service.list_all()}
+        subject_ids = set(subjects.keys())
+
+        topics = {
+            t.id: t
+            for t in self.topic_service.list_all()
+            if t.subject_id in subject_ids
+        }
 
         return self.render(
             'sessions',
@@ -162,18 +180,23 @@ class StudySessionController(BaseController):
 
         if request.method == 'GET':
             subjects = self._get_user_subjects(user_id)
-            topics = self.topic_service.list_all()
+            subject_ids = {s.id for s in subjects}
 
-            return self.render(
-                'session_form',
-                action="/sessions/new",
-                session=None,
-                subjects=subjects,
-                topics=topics,
-                current_subject=None,
-                current_topic=None,
-                user_id=user_id,
-            )
+            topics = [
+                t for t in self.topic_service.list_all()
+                if t.subject_id in subject_ids
+            ]
+
+        return self.render(
+            'session_form',
+            action="/sessions/new",
+            session=None,
+            subjects=subjects,
+            topics=topics,
+            current_subject=None,
+            current_topic=None,
+            user_id=user_id,
+        )
 
         request.forms['user_id'] = str(user_id)
         self.session_service.save()
@@ -261,18 +284,23 @@ class StudySessionController(BaseController):
 
         if request.method == 'GET':
             subjects = self._get_user_subjects(user_id)
-            topics = self.topic_service.list_all()
+            subject_ids = {s.id for s in subjects}
 
-            return self.render(
-                'session_form',
-                action=f"/sessions/{session_id}/edit",
-                session=session,
-                subjects=subjects,
-                topics=topics,
-                current_subject=None,
-                current_topic=None,
-                user_id=user_id,
-            )
+            topics = [
+                t for t in self.topic_service.list_all()
+                if t.subject_id in subject_ids
+            ]
+
+        return self.render(
+            'session_form',
+            action=f"/sessions/{session_id}/edit",
+            session=session,
+            subjects=subjects,
+            topics=topics,
+            current_subject=None,
+            current_topic=None,
+            user_id=user_id,
+        )
 
         self.session_service.update(session)
         return self.redirect('/sessions')
